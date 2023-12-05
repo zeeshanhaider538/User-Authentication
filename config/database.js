@@ -15,10 +15,14 @@ require('dotenv').config();
 
 const conn = process.env.DB_STRING;
 
-const connection = mongoose.createConnection(conn, {
+const connection = mongoose.createConnection("mongodb://localhost:27017",
+    {
     useNewUrlParser: true,
     useUnifiedTopology: true
-});
+}
+);
+connection.on('error', (error) => console.error(error));
+connection.once('open', () => console.log('Connected To DataBase'));
 
 // Creates simple schema for a User.  The hash and salt are derived from the user's given password when they register
 const UserSchema = new mongoose.Schema({

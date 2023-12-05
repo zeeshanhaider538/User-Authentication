@@ -51,6 +51,8 @@ app.use(routes);
 /**
  * -------------- SERVER ----------------
  */
-
+app.get("/s",(req,res)=>{
+    res.send("<h1>shanu</h1>")
+})
 // Server listens on http://localhost:3000
 app.listen(3000);
