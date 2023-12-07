@@ -1,9 +1,11 @@
 const express=require('express');
 const mongoose =require('mongoose');
-const session = require("express-sessions");
+const session = require("express-session");
 
 // Package documentation - https://www.npmjs.com/package/connect-mongo
-const MongoStore=require('connect-mongo')(session);
+// const session = require('express-session');
+const MongoStore=require('connect-mongo')
+
 
 // Create the express applications
 var app = express();
@@ -20,7 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 const sessionStore=new MongoStore({
     mongooseConnection:connection,
-    collection:"session"
+    collection:"session",
+    mongoUrl:'mongodb://localhost:27017/tutorial_db'
 });
 
 app.use(session({
@@ -29,10 +32,10 @@ app.use(session({
     saveUninitialized:true,
     store:sessionStore,
     cookie:{
-        maxAge:1000*60*60*24
+        maxAge:1000*60*60*24 //Age of the session is 1 day
     }
 }))
 app.get('/',(req,res)=>{
     res.send('<h1>dfaf</h1>')
 })
-app.listen(4000)
+app.listen(3000)
