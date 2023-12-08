@@ -31,6 +31,16 @@ app.use(express.urlencoded({extended: true}));
  */
 
 // TODO
+const sessionStore= new MongoStore({mongooseConnection:connection, collection:'sessions'})
+app.use(session({
+    secret:process.env.SECRET,
+    resave:false,
+    saveUninitialized:true,
+    store:sessionStore,
+    cookie:{
+        maxAge:1000*60*60*24 //Age of the session is 1 day
+    }
+}))
 
 /**
  * -------------- PASSPORT AUTHENTICATION ----------------

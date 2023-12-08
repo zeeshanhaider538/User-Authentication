@@ -16,7 +16,7 @@ const dbOptions={
     useUnifiedTopology:true
 }
 const connection = mongoose.createConnection(dbstring,dbOptions);
-connection.on("connected",()=>console.log("db connected"))
+connection.once("connected",()=>console.log("db connected"))
 connection.on("error",()=>console.log(error))
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -36,6 +36,13 @@ app.use(session({
     }
 }))
 app.get('/',(req,res)=>{
-    res.send('<h1>dfaf</h1>')
+    if(req.session.viewCount){
+        req.session.viewCount++;
+    }
+    else
+    {
+        req.session.viewCount=1;
+    }
+    res.send(`you visited the  page ${req.session.viewCount} times`)
 })
 app.listen(3000)
