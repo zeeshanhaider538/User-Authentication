@@ -19,7 +19,7 @@ const User = connection.models.User;
  * -------------- GET ROUTES ----------------
  */
 
-router.get('/', (req, res, next) => {
+router.get('/',passport.authenticate('local'), (req, res, next) => {
     res.send('<h1>Home</h1><p>Please <a href="/register">register</a></p>');
 });
 
